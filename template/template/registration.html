@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Register - Quiz Portal{% endblock %}
+
+{% block content %}
+<style>
+    .inFormBackground {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    
+    .circle {
+        position: absolute;
+        border-radius: 50%;
+        background-color: #6c757d;
+        opacity: 0.2;
+    }
+    
+    .circle:nth-child(1) {
+        width: 200px;
+        height: 200px;
+        top: 10%;
+        left: 15%;
+    }
+    
+    .circle:nth-child(2) {
+        width: 300px;
+        height: 300px;
+        bottom: 10%;
+        right: 10%;
+    }
+    
+    .inLoginForm {
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+        width: 100%;
+    }
+    
+    .form-columns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4px;
+    }
+    
+    .inputGroup {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+    }
+    
+    .inputGroup label {
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    
+    .inputGroup input {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    
+    .submitForm {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    
+    .submitForm:hover {
+        background-color: #0056b3;
+    }
+    
+    @media (max-width: 600px) {
+        .form-columns {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+<div class="inFormBackground">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="inLoginForm">
+        <form action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+            <div class="form-columns">
+                <div class="inputGroup">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="Name" placeholder="Enter Name" required>
+                </div>
+                <div class="inputGroup">
+                    <label for="mobile">Mobile</label>
+                    <input type="tel" id="mobile" name="mobile" placeholder="Enter Mobile Number" required>
+                </div>
+                <div class="inputGroup">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="Email" placeholder="Enter Email" required>
+                </div>
+                <div class="inputGroup">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter Username" required>
+                </div>
+                <div class="inputGroup">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter Password" required>
+                </div>
+                <div class="inputGroup">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" name="cnfm_password" placeholder="Enter Password" required>
+                </div>
+            </div>
+            <div>Select user</div>
+            <div style="display: flex;">
+                Farmers<input type="radio" id="admin" name="select_user" value="admin">
+                Buyers<input type="radio" id="student" name="select_user" value="student">
+            </div>
+            <button class="submitForm">Register</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

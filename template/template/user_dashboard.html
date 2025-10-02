@@ -1,0 +1,307 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home | Connect Farmers Platform{% endblock %}
+
+{% block content %}
+    {% if user.is_staff %}
+<style>
+    /* CSS Reset */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .title {
+        font-size: 2.5em;
+        margin: 0;
+        text-transform: uppercase;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+        background: white;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 2em;
+        color: #689F38;
+    }
+
+    .actions {
+        list-style-type: none;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .actions li {
+        background: #DCEDC8;
+        margin: 15px;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        width: 220px;
+        text-align: center;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .actions li:hover {
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        transform: translateY(-10px);
+    }
+
+    .btn {
+        padding: 0.5rem 1rem;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin: 0.25rem;
+        text-decoration:none;
+    }
+
+    .btn:hover {
+        background-color: #45a049;
+    }
+
+    .card {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .card h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+    }
+    .card img{
+        width:130px;
+    }
+    .card p {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+</style>
+<div class="container">
+    <section class="manage-products">
+        <h2>Manage Products</h2>
+        <ul class="actions">
+            {% if products %}
+            {% for product in products %}
+            {% if product.user == request.user %}
+            <li class="card">
+                <img src="{{product.image.url}}" alt="image">
+                <h3>{{product.product_name}}</h3>
+                <p>Category: {{product.category}}</p>
+                <p>Price: ${{product.price}}</p>
+                <p>status: {{product.status}}</p>
+                <div>
+                    <a href="{% url 'updateproduct' pk=product.id %}" class="btn">Update</a>
+                </div>
+            </li>
+            {% else %}
+            {% endif %}
+            {% endfor %}
+            {% else %}
+            <li class='card'>
+                <p>No products</p>
+            </li>
+            {% endif %}
+        </ul>
+    </section>
+    <section class="manage-orders">
+        <h2>Manage Orders</h2>
+        <ul class="actions">
+            {% if orders %}
+            {% for product in orders %}
+            {% if product.item.user == request.user %}
+            <li class="card">
+                <img sty src="{{product.item.image.url}}" alt="image">
+                <h3>{{product.item.product_name}}</h3>
+                <p>Category: {{product.item.category}}</p>
+                <p>Price: ${{product.item.price}}</p>
+                <p>Status: {{product.status}}</p>
+                <div>
+                    <a href="{% url 'updatestatus' pk=product.id %}" class="btn">Update Status</a>
+                </div><br>
+            </li>
+            {% else %}
+            {% endif %}
+            {% endfor %}
+            {% else %}
+            <li class='card'>
+                <p>No Orders </p>
+            </li>
+            {% endif %}
+
+        </ul>
+    </section>
+</div>
+{% else %}
+<style>
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .title {
+        font-size: 2.5em;
+        margin: 0;
+        text-transform: uppercase;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+        background: white;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 2em;
+        color: #689F38;
+    }
+
+    .actions {
+        list-style-type: none;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .actions li {
+        background: #DCEDC8;
+        margin: 15px;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        width: 220px;
+        text-align: center;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .actions li:hover {
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        transform: translateY(-10px);
+    }
+
+    .btn {
+        padding: 0.5rem 1rem;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin: 0.25rem;
+        text-decoration: none;
+    }
+
+    .btn:hover {
+        background-color: #45a049;
+    }
+
+    .card {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .card h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .card p {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+    .card img{
+        width:130px;
+    }
+    .card p {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+</style>
+<div class="container">
+    <section class="products">
+        <h2>Products</h2>
+        <ul class="actions">
+            {% if products %}
+            {% for product in products %}
+            <li class="card">
+                <img src="{{product.image.url}}" alt="image">
+                <h3>{{product.product_name}}</h3>
+                <p>Category: {{product.category}}</p>
+                <p>Price: ${{product.price}}</p>
+                <div>
+                    <a href="{% url 'order' pk=product.id %}" class="btn">Buy Now</a>
+                </div><br>
+            </li>
+            {% endfor %}
+            {% else %}
+            <li class='card'>
+                <p>No products</p>
+            </li>
+            {% endif %}
+        </ul>
+        </ul>
+    </section>
+    <section class="Orders">
+        <h2>My Orders</h2>
+        <ul class="actions">
+            {% if orders %}
+            {% for product in orders %}
+            {% if product.buyer == request.user %}
+            <li class="card">
+                <img src="{{product.item.image.url}}" alt="image">
+                <h3>{{product.item.product_name}}</h3>
+                <p>Category: {{product.item.category}}</p>
+                <p>Price: ${{product.item.price}}</p>
+                <p>Status: ${{product.status}}</p>
+            </li>
+            {% else %}
+            {% endif %}
+            {% endfor %}
+            {% else %}
+            <li class='card'>
+                <p>No Orders </p>
+            </li>
+            {% endif %}
+
+        </ul>
+    </section>
+    <section class="profile">
+        <h2>My Profile</h2>
+        <div class="card">
+            <h3>John Doe</h3>
+            <p>Email: john.doe@example.com</p>
+            <p>Phone: 123-456-7890</p>
+            <a href="#" class="btn">Edit Profile</a>
+        </div>
+    </section>
+</div>
+{% endif %}
+{% endblock %}

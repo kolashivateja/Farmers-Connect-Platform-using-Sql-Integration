@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <title>{% block title %}Connect Farmers Platform{% endblock %}</title>
+    <style>
+        body, h1, p {
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            overflow-x:hidden;
+        }
+        header {
+            background-color: #bccade;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            position:fixed;
+            width:100%;
+            z-index:1000;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-family: 'Sriracha', cursive;
+            color: #000;
+            text-decoration: none;
+        }
+
+        .navbar {
+            text-align: center;
+        }
+
+        nav a {
+            margin-right: 50px;
+            text-decoration: none;
+            color: black;
+            font-size: 17px;
+            font-weight: bolder;
+        }
+
+        button {
+            border: transparent;
+            background-color: transparent;
+        }
+
+        button:hover {
+            color: white;
+        }
+
+        footer {
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            position: static;
+            bottom: 0px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#" class="logo">Connect Farmers</a>
+        <div>
+            <nav class="navbar">
+                <button>
+                    <a href="{% url 'home' %}">Home</a>
+                </button>
+                {% if user.is_authenticated %}
+                {% if user.is_staff %}
+                <button>
+                    <a href="{% url 'add_product' %}">Add Product</a>
+                </button>
+                {% else %}
+                {% endif %}
+                <button>
+                    <a href="{% url 'dashboard' %}">Products</a>
+                </button>
+                <button>
+                    <a href="{% url 'logout' %}">Logout</a>
+                </button>
+                {% else %}
+                <button>
+                    <a href="{% url 'login' %}">Login</a>
+                </button>
+                <button>
+                    <a href="{% url 'register' %}">Register</a>
+                </button>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+    <section style="padding-top:90px;">
+    {% block content %}{% endblock %}
+    </section>
+    <footer>
+        <p>@Farmers connections </p>
+    </footer>
+</body>
+</html>

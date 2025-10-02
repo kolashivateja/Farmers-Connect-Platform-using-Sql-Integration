@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home | Connect Farmers Platform{% endblock %}
+
+{% block content %}
+<style>
+    main{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        margin:30px
+    }
+</style>
+<main>
+    <div class="intro">
+        <h1 style="display:flex;justify-content:center;align-items:center;margin:10px">Connect Farmers Platform</h1>
+        <img src="{% static 'images/rice-nature-food-plant.jpg' %}" height="500px" width="1000px">
+    </div>
+</main>
+{% endblock %}
